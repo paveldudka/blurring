@@ -5,5 +5,4 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@android:color/black</item>
     </style>
-
 </resources>

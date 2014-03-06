@@ -1,19 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.paveldudka.MainActivity"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:id="@+id/fragment1"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight=".5"/>
-    <FrameLayout
-        android:id="@+id/fragment2"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight=".5"/>
-
-</LinearLayout>
+    tools:context="com.paveldudka.MainActivity" />
