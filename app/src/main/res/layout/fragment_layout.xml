@@ -20,4 +20,11 @@
         android:layout_gravity="center_vertical"
         android:textStyle="bold"
         android:textSize="48sp" />
+    <LinearLayout
+        android:id="@+id/controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#7f000000"
+        android:orientation="vertical"
+        android:layout_gravity="bottom"/>
 </FrameLayout>

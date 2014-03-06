@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ import com.paveldudka.R;
 public class ScalingBlurFragment extends Fragment {
     private ImageView image;
     private TextView text;
-    private CheckBox downScaleFilter;
     private CheckBox upScaleFilter;
 
     @Override
@@ -36,7 +36,7 @@ public class ScalingBlurFragment extends Fragment {
         text = (TextView) view.findViewById(R.id.text);
         image.setImageResource(R.drawable.picture);
         applyBlur();
-        addCheckBoxes((ViewGroup) view);
+        addCheckBox((ViewGroup)view.findViewById(R.id.controls));
         return view;
     }
 
@@ -57,8 +57,8 @@ public class ScalingBlurFragment extends Fragment {
     private void blur(Bitmap bkg, View view) {
         float scaleFactor = 16;
 
-        Bitmap overlay = Bitmap.createBitmap(bkg, 0, 0, (int) (view.getMeasuredWidth() / scaleFactor),
-                (int) (view.getMeasuredHeight() / scaleFactor), null, downScaleFilter.isChecked());
+        Bitmap overlay = Bitmap.createBitmap((int) (view.getMeasuredWidth() / scaleFactor),
+                (int) (view.getMeasuredHeight() / scaleFactor), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(overlay);
         canvas.translate(-view.getLeft() / scaleFactor, -view.getTop() / scaleFactor);
         canvas.scale(1 / scaleFactor, 1 / scaleFactor);
@@ -77,44 +77,23 @@ public class ScalingBlurFragment extends Fragment {
         return "Scaling";
     }
 
-    private void addCheckBoxes(ViewGroup container) {
-        LinearLayout host = new LinearLayout(getActivity());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.BOTTOM;
-        host.setOrientation(LinearLayout.VERTICAL);
-        host.setBackgroundColor(0x7f000000);
-
-        host.setLayoutParams(params);
-
-        downScaleFilter = new CheckBox(getActivity());
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        downScaleFilter.setLayoutParams(lp);
-        downScaleFilter.setVisibility(View.VISIBLE);
-        downScaleFilter.setText("Filter down scale");
-        host.addView(downScaleFilter);
-        downScaleFilter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d("pasha", "Down scale checked: " + isChecked);
-                applyBlur();
-            }
-        });
+    private void addCheckBox(ViewGroup container) {
 
         upScaleFilter = new CheckBox(getActivity());
-        lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         upScaleFilter.setLayoutParams(lp);
         upScaleFilter.setText("Filter up scale");
         upScaleFilter.setVisibility(View.VISIBLE);
-        host.addView(upScaleFilter);
+        upScaleFilter.setBackgroundColor(0x7f000000);
+        upScaleFilter.setTextColor(0xFFFFFFFF);
         upScaleFilter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d("pasha", "Up scale checked: " + isChecked);
                 applyBlur();
             }
         });
 
 
-        container.addView(host);
+        container.addView(upScaleFilter);
     }
 }
