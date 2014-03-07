@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 
 import com.paveldudka.fragments.FastBlurFragment;
 import com.paveldudka.fragments.RSBlurFragment;
+import com.paveldudka.util.ZoomOutPageTransformer;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class MainActivity extends FragmentActivity {
                         getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
