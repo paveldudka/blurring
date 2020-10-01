@@ -21,9 +21,9 @@ This is a compromise between Gaussian Blur and Box blur
 It creates much better looking blurs than Box Blur, but is
 7x faster than my Gaussian Blur implementation.
         
-I called it Stack Blur because this describes best how this
+I called it Stack Blur because this describes best how our
 filter works internally: it creates a kind of moving stack
-of colors whilst scanning through the image. Thereby it
+of colors while 1st scanning through the image. Thereby it
 just has to add one new block of color to the right side
 of the stack and remove the leftmost color. The remaining
 colors on the topmost layer of the stack are either added on
